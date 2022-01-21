@@ -1,0 +1,269 @@
+body {
+    background-color: #111111;
+}
+
+
+
+.mainpage-header {
+    font-family: Verdana;
+    font-size: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    background-color: #1f1f1f;
+}
+
+.header-logo-text {
+    width: auto;
+}
+
+.header-logo-logo img {
+    max-width: 70px;
+    max-height: 70px;
+}
+
+.header-logo-logo a {
+    position: relative;
+    font-weight: 600;
+    top: -25px;
+    left: 0;
+    color: #95a5d5;
+}
+
+.header-buttons {
+    position: absolute;
+    width: auto;
+    height: 100%;
+    top: 0;
+    float: right;
+    right: 0;
+    text-align: right;
+}
+
+.header-buttons a {
+    color: #95a5d5;
+    position: relative;
+    padding: 10px;
+    top: 23px;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: "Bauhaus 93";
+}
+
+.header-buttons a:visited {  }
+
+
+
+.main-profile {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+.profile-card {
+    background-color: #313131;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0 #66749b;
+    width: 420px;
+    min-height: 300px;
+}
+
+.profile-picture {
+    position: relative;
+    float: left;
+    max-width: 40px;
+    max-height: 40px;
+    width: 40px;
+    padding: 8px;
+    display: block;
+}
+
+.profile-card div.profile-picture img {
+    position: relative;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 100%;
+    border: #95a5d5 solid 2px;
+    transition-duration: 0.4s;
+}
+
+.profile-card div.profile-picture img:hover {
+    position: relative;
+    max-width: 37px;
+    max-height: 37px;
+    border-radius: 100%;
+    border: #a6b9ef solid 5px;
+    transition-duration: 0.4s;
+}
+
+.profile-picture input {
+    position: absolute;
+    display: block;
+    font-size: 30px;
+    margin-left: 10px;
+    top: 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 40px;
+    max-height: 40px;
+    opacity: 0;
+}
+
+.profile-fields {
+    display: grid;
+    position: relative;
+    padding-top: 5px;
+    text-align: center;
+    width: fit-content;
+}
+
+.profile-fields input {
+    position: relative;
+    margin: 2px;
+    padding-left: 10px;
+    color: #95a5d5;
+    width: 150%;
+    border-radius: 20px;
+    background-color: #363636;
+    border: #b4c7ff dotted;
+
+    transition-duration: 0.4s;
+}
+
+.profile-fields input:hover {
+    border-radius: 5px;
+    background-color: #282828;
+    border: #b4c7ff solid;
+    transition-duration: 0.2s;
+}
+
+
+.profile-fields input:focus {
+    border-radius: 10px;
+    background-color: #282828;
+    border: #b4c7ff solid;
+    transition-duration: 0.4s;
+}
+
+
+.profile-field-description {
+    position: relative;
+    height: 100px;
+    text-align: left;
+    padding-left: 4px;
+}
+
+.input-description {
+    float:left;
+    width: 94%;
+    border-radius: 20px;
+    background-color: #363636;
+    border: #b4c7ff dotted;
+    padding-left: 10px;
+    color: #95a5d5;
+    height: fit-content;
+    min-height: 100px;
+    word-wrap: break-word;
+    resize: none;
+    transition-duration: 0.4s;
+}
+
+.input-description:hover {
+    border-radius: 5px;
+    cursor: text;
+    border: #b4c7ff solid;
+    transition-duration: 0.2s;
+}
+
+.input-description:focus {
+    border-radius: 5px;
+    cursor: text;
+    border: #b4c7ff solid;
+    transition-duration: 0.4s;
+}
+
+.profile-links {
+    margin-top: 20px;
+    display: block;
+    position: relative;
+    width: 93%;
+    margin-left: 4px;
+    border-radius: 10px;
+    border: #b4c7ff solid;
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.profile-links input {
+    position: relative;
+    width: 45%;
+    background-color: #323232;
+    color: #b4c7ff;
+}
+
+.main-page-footer button.btn-submit-changes {
+    position: relative;
+    float: left;
+    left: 23%;
+
+    margin-top: 7px;
+    padding: 5px;
+    border-radius: 10px;
+
+    background-color: #b4c7ff;
+    color: #ffffff;
+
+    transition-duration: 0.4s;
+}
+
+.main-page-footer button.btn-submit-changes:hover {
+    background-color: #66749b;
+    transition-duration: 0.2s;
+}
+
+.main-page-footer button.btn-discard-changes {
+    position: relative;
+    float: right;
+    right: 23%;
+
+    margin-top: 7px;
+    padding: 5px;
+    border-radius: 10px;
+
+    background-color: #313131;
+    color: #797979;
+
+    transition-duration: 0.4s;
+}
+
+.main-page-footer button.btn-discard-changes:hover {
+    background-color: #252525;
+    transition-duration: 0.2s;
+}
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    background-color: #323232;
+    text-align: center;
+}
+
+.footer-main a {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-family: Bahnschrift;
+    transform: translate(-50%, -50%);
+    color: #66749b;
+}
+

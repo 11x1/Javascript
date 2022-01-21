@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profiler</title>
+    <link rel="stylesheet" href="./editprofile-styles.css">
+    <base href="http://localhost:63342/MelonRestCopy"/>
+    <script src="./js/jquery.js"></script>
+    <script src="./edit-profile/main.js"></script>
+</head>
+<body>
+<script src="./edit-profile/main.js"></script>
+
+<div class="mainpage-header">
+    <div class="header-logo-text">
+        <div class="header-logo-logo">
+            <img alt="" src="./logo.png">
+            <a class="header-logo-text">Profile site</a>
+        </div>
+    </div>
+
+    <div class="header-buttons">
+        <a class="signin" href="./signin/signin.html">Sign-In</a>
+        <a class="register" href="./register/register.html">Register</a>
+    </div>
+</div>
+<div class="main-profile">
+    <div class="profile-card">
+        <div class="profile-picture">
+            <input class="pfp-picker" type="file" onchange="readURL(this);">
+            <img class="profile-img" src="./profile/profile-picture.png" onclick="function openfile() { $('.pfp-picker').click(); } openfile()">
+
+        </div>
+        <div class="profile-fields">
+            <label>
+                <input maxlength="24" class="input-username" placeholder="username" value="riis (adamin)">
+            </label>
+            <label>
+                <input maxlength="36" class="input-discord" placeholder="discord" value="khey#2341">
+            </label>
+        </div>
+
+        <div class="profile-field-description">
+            <label class="label-description">
+                <textarea class="input-description" maxlength="258">alpha benedictus i dont rememver descriptionus</textarea>
+            </label>
+        </div>
+
+        <div class="profile-links">
+            <label>
+                <input class="input-link1-name" placeholder="link 1 name" value="Link 1">
+                <input class="input-link1" placeholder="link 1" value="https://dashboard.shibe.host/">
+            </label>
+            <label>
+                <input class="input-link2-name" placeholder="link 2 name" value="Link 2">
+                <input class="input-link2" placeholder="link 2" value="https://dashboard.shibe.host/">
+            </label>
+            <label>
+                <input class="input-link3-name" placeholder="link 3 name" value="Link 3">
+                <input class="input-link3" placeholder="link 3" value="https://dashboard.shibe.host/">
+            </label>
+        </div>
+        <div class="main-page-footer">
+            <button class="btn-submit-changes"> Save changes</button>
+            <button class="btn-discard-changes"> Discard changes</button>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-main">
+        <a>Created with love, by khey</a>
+    </div>
+</div>
+</body>
+</html>
