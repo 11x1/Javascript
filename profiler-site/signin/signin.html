@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="signin-styles.css">
+</head>
+<body>
+    <div class="signin-window">
+        <div class="logo-div">
+            <img src="/logo.png" alt="">
+        </div>
+        <div class="input-fields">
+            <label>
+                <input class="username" placeholder="username">
+            </label>
+            <a class="login-error" style="color: darkred; font-family: Corbel; font-size: 14px"></a>
+            <label>
+                <input type="password" class="password" placeholder="password" >
+            </label>
+            <a class="register-error" style="color: darkred; font-family: Corbel; font-size: 14px"></a>
+        </div>
+        <div class="signin-buttons">
+            <button class="btn-signin" onclick="window.location = '/profile/main.html'">Sign-In</button>
+            <a class="btn-register" href="/register/register.html">Need to register?</a>
+        </div>
+    </div>
+
+</body>
+</html>
