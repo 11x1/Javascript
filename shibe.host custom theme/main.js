@@ -53,8 +53,13 @@ header_options_div.id = 'header_options'
 header_options_div.style.display = 'block'
 custom_theme_div.append(header_options_div)
 
-let custom_elements = []
+let small_help_text = document.createElement('p')
+small_help_text.className = 'text-xs mt-2 text-center'
+small_help_text.innerText = 'Change your custom theme colors. Use the dropdown to select a specific tab.'
+custom_theme_div.append(small_help_text)
 
+// function to create elements faster (text & color)
+let custom_elements = []
 function a(parent, innerHTML, target_elem_color, target_elem_bg) {
     custom_elements[innerHTML] = []
     custom_elements[innerHTML]['element'] = document.createElement('label')
@@ -77,8 +82,10 @@ function a(parent, innerHTML, target_elem_color, target_elem_bg) {
     parent.append(custom_elements[innerHTML]['color'])
 }
 
+// create a header bg changer element
 a(header_options_div, 'Header background ', undefined, document.getElementsByClassName('navbar mb-2 flex justify-between shadow-lg bg-neutral text-neutral-content')[0])
 
+// handle visibility of shit
 newdropdown.addEventListener('change', function() {
     header_options_div.style.display = 'none'
     if (newdropdown.value == 'Header') {
