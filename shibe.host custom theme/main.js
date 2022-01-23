@@ -173,3 +173,11 @@ function create_elem(parent, innerHTML, target_elem_color, target_elem_bg) {
     parent.append(custom_elements[innerHTML]['element'])
     parent.append(custom_elements[innerHTML]['color'])
 }
+
+create_elem(home_option_div, 'Home title color ', document.getElementsByClassName('text-3xl font-bold mb-2 text-center')[0], undefined)
+
+create_elem(home_option_div, '\nHome subtitle color ', document.getElementsByClassName('text-gray-600 text-center mb-5')[0], undefined)
+
+create_elem(home_option_div, '\nHome stat text color ', document.getElementsByClassName('stat-title'), undefined)
+
+create_elem(home_option_div, '\nHome stat color ', document.getElementsByClassName('stat-value'), undefined)
