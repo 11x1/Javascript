@@ -1,3 +1,5 @@
+// This code COULD be optimised alot but fuck that we're not optimizing shit because we're a good dev
+
 const shit = document.createElement('div')
 shit.className = 'mt-10 w-full relative'
 
@@ -113,40 +115,6 @@ general_option_div.style.display = 'block'
 custom_theme_div.append(general_option_div)
 // Divs for each option end
 
-// Help text
-let small_help_text = document.createElement('p')
-small_help_text.className = 'text-xs mt-2 text-center'
-small_help_text.innerText = 'Change your custom theme colors. Use the dropdown to select a specific tab.'
-custom_theme_div.append(small_help_text)
-
-// function to create elements faster (text & color)
-let custom_elements = []
-function a(parent, innerHTML, target_elem_color, target_elem_bg) {
-    custom_elements[innerHTML] = []
-    custom_elements[innerHTML]['element'] = document.createElement('label')
-    custom_elements[innerHTML]['element'].innerHTML = innerHTML
-    
-    custom_elements[innerHTML]['color'] = document.createElement('input')
-    custom_elements[innerHTML]['color'].type = 'color'
-
-    custom_elements[innerHTML]['color'].addEventListener('change', function() {
-        if (target_elem_color) {
-            target_elem_color.style.color = custom_elements[innerHTML]['color'].value
-        }
-
-        if (target_elem_bg) {
-            target_elem_bg.style.backgroundColor = custom_elements[innerHTML]['color'].value
-        }
-    })
-
-    parent.append(custom_elements[innerHTML]['element'])
-    parent.append(custom_elements[innerHTML]['color'])
-}
-
-// header bg
-a(header_options_div, 'Header background ', undefined, document.getElementsByClassName('navbar mb-2 flex justify-between shadow-lg bg-neutral text-neutral-content')[0])
-// header text
-a(header_options_div, ' Header text ', document.getElementsByClassName('navbar mb-2 flex justify-between shadow-lg bg-neutral text-neutral-content')[0], undefined)
 
 // handle visibility of shit
 newdropdown.addEventListener('change', function() {
@@ -172,3 +140,36 @@ newdropdown.addEventListener('change', function() {
         general_option_div.style.display = 'block'
     }
 })
+// Visibility handler end
+
+// Help text
+let small_help_text = document.createElement('p')
+small_help_text.className = 'text-xs mt-2 text-center'
+small_help_text.innerText = 'Change your custom theme colors. Use the dropdown to select a specific tab.'
+custom_theme_div.append(small_help_text)
+// Help text end
+
+
+// function to create elements faster (text & color)
+let custom_elements = []
+function create_elem(parent, innerHTML, target_elem_color, target_elem_bg) {
+    custom_elements[innerHTML] = []
+    custom_elements[innerHTML]['element'] = document.createElement('label')
+    custom_elements[innerHTML]['element'].innerHTML = innerHTML
+    
+    custom_elements[innerHTML]['color'] = document.createElement('input')
+    custom_elements[innerHTML]['color'].type = 'color'
+
+    custom_elements[innerHTML]['color'].addEventListener('change', function() {
+        if (target_elem_color) {
+            target_elem_color.style.color = custom_elements[innerHTML]['color'].value
+        }
+
+        if (target_elem_bg) {
+            target_elem_bg.style.backgroundColor = custom_elements[innerHTML]['color'].value
+        }
+    })
+
+    parent.append(custom_elements[innerHTML]['element'])
+    parent.append(custom_elements[innerHTML]['color'])
+}
