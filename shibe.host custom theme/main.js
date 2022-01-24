@@ -218,15 +218,15 @@ setInterval(function() {
             small_help_text.addEventListener('click', function() {
                 let final = 'custom_colors = {\n'
                 for (let key in custom_colors) {
-                    final += '    ' + key + ': {\n'
+                    final += '    \'' + key + '\': {\n'
                     for (key2 in custom_colors[key]) {
-                        final += '        ' + key2 + ' : \'' + custom_colors[key][key2] + '\',\n'
+                        final += '        \'' + key2 + '\' : \'' + custom_colors[key][key2] + '\',\n'
                     }
                     final += '    },'
                 }
                 final += '\n}'
                 console.log(final)
-                alert('//Config:\n' + final)
+                alert('Check developer console (f12)')
             })
             
             // Help text end
