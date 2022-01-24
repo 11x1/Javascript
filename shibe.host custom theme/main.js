@@ -141,25 +141,7 @@ setInterval(function() {
             about_option_div.id = 'general_option_div'
             general_option_div.style = 'display: block; padding-top: 5px'
             custom_theme_div.append(general_option_div)
-            // Divs for each option end
-
-            // stylesheet for uploads tab (need 2 due to website being designed like this)
-            if (!document.getElementById('custom_uploads_tab1')) {
-                css = '.bg-neutral.p-4 { background-color: #ffffff }'
-                var style = document.createElement('style');
-                style.id = 'custom_uploads_tab1'
-                style.appendChild(document.createTextNode(css));
-                document.getElementsByTagName('head')[0].appendChild(style);
-            }
-
-            if (!document.getElementById('custom_uploads_tab2')) {
-                css = '.shadow-2xl.rounded-xl.overflow-hidden.border-b-4 { background-color: #ffffff }'
-                var style = document.createElement('style');
-                style.id = 'custom_uploads_tab2'
-                style.appendChild(document.createTextNode(css));
-                document.getElementsByTagName('head')[0].appendChild(style);
-            }
-            
+            // Divs for each option end           
 
             // handle visibility of shit
             newdropdown.addEventListener('change', function() {
