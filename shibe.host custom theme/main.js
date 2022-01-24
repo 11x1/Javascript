@@ -1,5 +1,10 @@
 // This code COULD be optimised alot but fuck that we're not optimizing shit because we're a good dev
 
+// info stuff
+console.log('> khey\'s custom theme extension')
+console.log('> last update: 25.01.2022')
+console.log('> enjoy ur custom theme since mr \'freebo\' is lazy')
+
 let theme_selected_color_is_custom = true
 let init = false
 let updated_uploads_tab = false
