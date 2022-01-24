@@ -10,47 +10,6 @@ let init = false
 let updated_uploads_tab = false
 let custom_elements = []
 
-custom_colors = {
-    'home': {
-        'title' : '#ffffff',
-        'subtitle' : '#ffffff',
-        'stattext' : '#ffffff',
-        'stat' : '#ffffff',
-    },
-    
-    'uploads' : {
-        'image_tab' : '#ffffff',
-        'image_border' : '#ffffff',
-        'file-name' : '#0000ff',
-        'file-date' : '#111111',
-        'copy_link' : '#ffffff',
-        'copy_link_hover' : '#ffffff',
-        'delete_file' : '#ffffff',
-        'delete_file_hover' : '#ffffff',
-    },
-
-    'about' : {
-        'question' : '#ffffff',
-        'answer' : '#ffffff',
-    },
-
-    'settings' : {
-
-    },
-
-    'upload' : {
-        'dropzone' : '#313131',
-        'dropzone-text' : '#ffffff',
-        'progressbar' : '#ff0000',
-    },
-
-    'general' : {
-        'header_color' : '#212121',
-        'header_text_color' : '#ffffff',
-        'background' : '#111111'
-    },
-}
-
 setInterval(function() {
     if (window.location == 'https://dashboard.shibe.host/settings') {
         if (document.querySelector('[aria-selected="true"]').id != document.getElementsByClassName('svelte-tabs__tab svelte-bcjkd5')[1].id) { init = false
