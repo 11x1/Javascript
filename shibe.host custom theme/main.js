@@ -335,7 +335,9 @@ setInterval(function() {
             }
         } else if (window.location == 'https://dashboard.shibe.host/upload') {
             document.getElementById('uploadZone').style.backgroundColor = custom_colors['upload']['dropzone']
-            document.getElementsByClassName('dz-button')[0].style.color = custom_colors['upload']['dropzone-text']
+            for (i=0; i < document.getElementsByClassName('dz-button').length; i++) {
+                document.getElementsByClassName('dz-button')[i].style.color = custom_colors['upload']['dropzone-text']
+            }
             for (i=0; i < document.getElementsByClassName('dz-upload').length; i++) {
                 document.getElementsByClassName('dz-upload')[i].style.color = custom_colors['upload']['progressbar']
             }
@@ -351,7 +353,8 @@ setInterval(function() {
             header_text_elems[i].style.color = custom_colors['general']['header_text_color']
         }
         document.getElementsByClassName('text-lg font-bold')[0].style.color = custom_colors['general']['header_text_color']
-        document.getElementsByClassName('svelte-165ybav')[0].style.color = custom_colors['general']['header_text_color']
+        document.getElementsByClassName('items-stretch hidden lg:flex')[0].style.color = custom_colors['general']['header_text_color']
         document.body.style.backgroundColor = custom_colors['general']['background']
     }
 }, 1) 
+
