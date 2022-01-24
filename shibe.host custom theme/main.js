@@ -3,8 +3,21 @@
 let theme_selected_color_is_custom = true
 let init = false
 
-console.log('WTF')
+var textFile = null,
+makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
 
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+
+    // returns a URL you can use as a href
+    return textFile;
+};
 custom_colors = {
     'home': {
         'title' : '#ffffff',
@@ -14,7 +27,12 @@ custom_colors = {
     },
     
     'uploads' : {
-
+        'image_tab' : '#ffffff',
+        'image_border' : '#ffffff',
+        'copy_link' : '#ffffff',
+        'copy_link_hover' : '#ffffff',
+        'delete_file' : '#ffffff',
+        'delete_file_hover' : '#ffffff'
     },
 
     'about' : {
@@ -168,29 +186,24 @@ setInterval(function() {
             general_option_div.style.display = 'block'
             custom_theme_div.append(general_option_div)
             // Divs for each option end
-            
 
-            home_option_div.style.display = 'none'
-            uploads_option_div.style.display = 'none'
-            about_option_div.style.display = 'none'
-            settings_option_div.style.display = 'none'
-            upload_option_div.style.display = 'none'
-            general_option_div.style.display = 'none'
-
-
-            if (newdropdown.value == 'home_option') {
-                home_option_div.style.display = 'block'
-            } else if (newdropdown.value == 'uploads_option') {
-                uploads_option_div.style.display = 'block'
-            } else if (newdropdown.value == 'about_option') {
-                about_option_div.style.display = 'block'
-            } else if (newdropdown.value == 'settings_option') {
-                settings_option_div.style.display = 'block'
-            } else if (newdropdown.value == 'upload_option') {
-                upload_option_div.style.display = 'block'
-            } else if (newdropdown.value == 'general_option') {
-                general_option_div.style.display = 'block'
+            // stylesheet for uploads tab (need 2 due to website being designed like this)
+            if (!document.getElementById('custom_uploads_tab1')) {
+                css = '.bg-neutral.p-4 { background-color: #ffffff }'
+                var style = document.createElement('style');
+                style.id = 'custom_uploads_tab1'
+                style.appendChild(document.createTextNode(css));
+                document.getElementsByTagName('head')[0].appendChild(style);
             }
+
+            if (!document.getElementById('custom_uploads_tab2')) {
+                css = '.shadow-2xl.rounded-xl.overflow-hidden.border-b-4 { background-color: #ffffff }'
+                var style = document.createElement('style');
+                style.id = 'custom_uploads_tab2'
+                style.appendChild(document.createTextNode(css));
+                document.getElementsByTagName('head')[0].appendChild(style);
+            }
+            
 
             // handle visibility of shit
             newdropdown.addEventListener('change', function() {
@@ -216,6 +229,29 @@ setInterval(function() {
                     general_option_div.style.display = 'block'
                 }
             })
+
+            // init visibility
+            home_option_div.style.display = 'none'
+            uploads_option_div.style.display = 'none'
+            about_option_div.style.display = 'none'
+            settings_option_div.style.display = 'none'
+            upload_option_div.style.display = 'none'
+            general_option_div.style.display = 'none'
+
+
+            if (newdropdown.value == 'home_option') {
+                home_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'uploads_option') {
+                uploads_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'about_option') {
+                about_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'settings_option') {
+                settings_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'upload_option') {
+                upload_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'general_option') {
+                general_option_div.style.display = 'block'
+            }
             // Visibility handler end
 
             // Help text
@@ -236,28 +272,41 @@ setInterval(function() {
                 custom_elements[innerHTML]['color'] = document.createElement('input')
                 custom_elements[innerHTML]['color'].type = 'color'
                 custom_elements[innerHTML]['color'].style = 'right: 5%; position: absolute; transform: translate(0%, 3%)'
-
+                
                 parent.append(custom_elements[innerHTML]['element'])
                 parent.append(custom_elements[innerHTML]['color'])
             }
-
-            create_elem(home_option_div, 'Home title color ')
-
-            create_elem(home_option_div, '\nHome subtitle color ')
-
-            create_elem(home_option_div, '\nHome stat text color ')
-
-            create_elem(home_option_div, '\nHome stat color ')
-
-            create_elem(about_option_div, 'About question color ')
-
-            create_elem(about_option_div, '\nAbout answer color ')
             
+            // Home theme options
+            create_elem(home_option_div, 'Home title color ')
+            create_elem(home_option_div, '\nHome subtitle color ')
+            create_elem(home_option_div, '\nHome stat text color ')
+            create_elem(home_option_div, '\nHome stat color ')
+            
+            // Uploads theme options
+            create_elem(uploads_option_div, 'Image tab color ')
+            create_elem(uploads_option_div, '\nImage border color ')
+            create_elem(uploads_option_div, '\n"Copy link" color ')
+            create_elem(uploads_option_div, '\n"Copy link" hover color ')
+            create_elem(uploads_option_div, '\n"Delete file" color ')
+            create_elem(uploads_option_div, '\n"Delete file" hover color ')
+
+            // About theme options
+            create_elem(about_option_div, 'About question color ')
+            create_elem(about_option_div, '\nAbout answer color ')
+
 
             custom_elements['Home title color ']['color'].value = custom_colors['home']["title"]
             custom_elements['\nHome subtitle color ']['color'].value = custom_colors['home']["subtitle"]
             custom_elements['\nHome stat text color ']['color'].value = custom_colors['home']["stat_text"]
             custom_elements['\nHome stat color ']['color'].value = custom_colors['home']["stat"]
+
+            custom_elements['Image tab color ']['color'].value = custom_colors['uploads']["image_tab"]
+            custom_elements['\nImage border color ']['color'].value = custom_colors['uploads']["image_border"]
+            custom_elements['\n"Copy link" color ']['color'].value = custom_colors['uploads']["copy_link"]
+            custom_elements['\n"Copy link" hover color ']['color'].value = custom_colors['uploads']["copy_link_hover"]
+            custom_elements['\n"Delete file" color ']['color'].value = custom_colors['uploads']["delete_file"]
+            custom_elements['\n"Delete file" hover color"']['color'].value = custom_colors['uploads']["delete_file_hover"]
 
             custom_elements['About question color ']['color'].value = custom_colors['about']["question"]
             custom_elements['\nAbout answer color ']['color'].value = custom_colors['about']["answer"]
@@ -278,7 +327,41 @@ setInterval(function() {
             custom_elements['\nHome stat color ']['color'].addEventListener('change', function() {
                 custom_colors['home']["stat"] = custom_elements['\nHome stat color ']['color'].value
             })
+            
+            custom_elements['Image tab color ']['color'].addEventListener('change', function() {
+                custom_colors['uploads']["image_tab"] = custom_elements['Image tab color ']['color'].value
+                console.log('changing bg color')
+                
+                document.getElementsByTagName('head')[0].removeChild(document.getElementById('custom_uploads_tab1'))
+                document.getElementsByTagName('head')[0].removeChild(document.getElementById('custom_uploads_tab2'))
+                css = '.bg-neutral.p-4 { background-color: ' + custom_colors['uploads']["image_tab"] + ' }'
+                var style = document.createElement('style');
+                style.id = 'custom_uploads_tab1'
+                style.appendChild(document.createTextNode(css));
+                document.getElementsByTagName('head')[0].appendChild(style);
 
+                css = '.shadow-2xl.rounded-xl.overflow-hidden.border-b-4 { background-color: ' + custom_colors['uploads']["image_tab"] + ' }'
+                var style = document.createElement('style');
+                style.id = 'custom_uploads_tab2'
+                style.appendChild(document.createTextNode(css));
+                document.getElementsByTagName('head')[0].appendChild(style);
+            })
+            custom_elements['\nImage border color ']['color'].addEventListener('change', function() {
+                custom_colors['uploads']["image_border"] = custom_elements['Image border color ']['color'].value
+            })
+            custom_elements['\n"Copy link" color ']['color'].addEventListener('change', function() {
+                custom_colors['uploads']["copy_link"] = custom_elements['"Copy link" color ']['color'].value 
+            })
+             custom_elements['\n"Copy link" hover color ']['color'].addEventListener('change', function() {
+                custom_colors['uploads']["copy_link_hover"] = custom_elements['"Copy link" hover color ']['color'].value 
+            })
+            custom_elements['\n"Delete file" color ']['color'].addEventListener('change', function() {
+                 custom_colors['uploads']["delete_file"] = custom_elements['"Delete file" color ']['color'].value
+            })
+            custom_elements['\n"Delete file" hover color"']['color'].addEventListener('change', function() {
+                custom_colors['uploads']["delete_file_hover"] = custom_elements['"Delete file" hover color"']['color'].value 
+            })
+            
 
             custom_elements['\nAbout answer color ']['color'].addEventListener('change', function() {
                  custom_colors['about']["answer"] = custom_elements['\nAbout answer color ']['color'].value
@@ -310,6 +393,6 @@ setInterval(function() {
             for (i = 0; i < answer_elems.length; i++) {
                 answer_elems[i].style.color = custom_colors['about']['answer']
             }
-        }
+        } 
     }
 }, 1)
