@@ -1,7 +1,13 @@
 // This code COULD be optimised alot but fuck that we're not optimizing shit because we're a good dev
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 let theme_selected_color_is_custom = true
 let init = false
+let updated_uploads_tab = false
+let custom_elements = []
 
 var textFile = null,
 makeTextFile = function (text) {
@@ -53,7 +59,7 @@ custom_colors = {
     },
 }
 
-setInterval(function() {
+setInterval(async function() {
     if (window.location == 'https://dashboard.shibe.host/settings') {
         if (document.querySelector('[aria-selected="true"]').id != document.getElementsByClassName('svelte-tabs__tab svelte-bcjkd5')[1].id) { init = false
 ; return }
@@ -263,7 +269,6 @@ setInterval(function() {
 
 
             // function to create elements faster (text & color)
-            let custom_elements = []
             function create_elem(parent, innerHTML) {
                 custom_elements[innerHTML] = []
                 custom_elements[innerHTML]['element'] = document.createElement('label')
@@ -295,18 +300,21 @@ setInterval(function() {
             create_elem(about_option_div, 'About question color ')
             create_elem(about_option_div, '\nAbout answer color ')
 
+            await sleep(1000)
+
 
             custom_elements['Home title color ']['color'].value = custom_colors['home']["title"]
             custom_elements['\nHome subtitle color ']['color'].value = custom_colors['home']["subtitle"]
             custom_elements['\nHome stat text color ']['color'].value = custom_colors['home']["stat_text"]
             custom_elements['\nHome stat color ']['color'].value = custom_colors['home']["stat"]
 
-            custom_elements['Image tab color ']['color'].value = custom_colors['uploads']["image_tab"]
+            // Were doing this in css so fuck that
+            //custom_elements['Image tab color ']['color'].value = custom_colors['uploads']["image_tab"]
             custom_elements['\nImage border color ']['color'].value = custom_colors['uploads']["image_border"]
             custom_elements['\n"Copy link" color ']['color'].value = custom_colors['uploads']["copy_link"]
             custom_elements['\n"Copy link" hover color ']['color'].value = custom_colors['uploads']["copy_link_hover"]
             custom_elements['\n"Delete file" color ']['color'].value = custom_colors['uploads']["delete_file"]
-            custom_elements['\n"Delete file" hover color"']['color'].value = custom_colors['uploads']["delete_file_hover"]
+            custom_elements['\n"Delete file" hover color ']['color'].value = custom_colors['uploads']["delete_file_hover"]
 
             custom_elements['About question color ']['color'].value = custom_colors['about']["question"]
             custom_elements['\nAbout answer color ']['color'].value = custom_colors['about']["answer"]
@@ -328,24 +336,7 @@ setInterval(function() {
                 custom_colors['home']["stat"] = custom_elements['\nHome stat color ']['color'].value
             })
             
-            custom_elements['Image tab color ']['color'].addEventListener('change', function() {
-                custom_colors['uploads']["image_tab"] = custom_elements['Image tab color ']['color'].value
-                console.log('changing bg color')
-                
-                document.getElementsByTagName('head')[0].removeChild(document.getElementById('custom_uploads_tab1'))
-                document.getElementsByTagName('head')[0].removeChild(document.getElementById('custom_uploads_tab2'))
-                css = '.bg-neutral.p-4 { background-color: ' + custom_colors['uploads']["image_tab"] + ' }'
-                var style = document.createElement('style');
-                style.id = 'custom_uploads_tab1'
-                style.appendChild(document.createTextNode(css));
-                document.getElementsByTagName('head')[0].appendChild(style);
-
-                css = '.shadow-2xl.rounded-xl.overflow-hidden.border-b-4 { background-color: ' + custom_colors['uploads']["image_tab"] + ' }'
-                var style = document.createElement('style');
-                style.id = 'custom_uploads_tab2'
-                style.appendChild(document.createTextNode(css));
-                document.getElementsByTagName('head')[0].appendChild(style);
-            })
+            
             custom_elements['\nImage border color ']['color'].addEventListener('change', function() {
                 custom_colors['uploads']["image_border"] = custom_elements['Image border color ']['color'].value
             })
@@ -393,6 +384,10 @@ setInterval(function() {
             for (i = 0; i < answer_elems.length; i++) {
                 answer_elems[i].style.color = custom_colors['about']['answer']
             }
-        } 
+        } else if (window.location == 'https://dashboard.shibe.host/uploads' && !updated_uploads_tab) {
+            document.getElementById('custom_uploads_tab1').innerText = '.bg-neutral.p-4 { background-color: ' + custom_elements['Image tab color ']['color'].value + ' }'
+
+                document.getElementById('custom_uploads_tab2').innerText = '.shadow-2xl.rounded-xl.overflow-hidden.border-b-4 { background-color: ' + custom_elements['Image tab color ']['color'].value + ' }'
+        }
     }
 }, 1)
