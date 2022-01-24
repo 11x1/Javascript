@@ -213,8 +213,22 @@ setInterval(function() {
             // Help text
             let small_help_text = document.createElement('p')
             small_help_text.className = 'text-xs mt-2 text-center'
-            small_help_text.innerText = 'Change your custom theme colors. Use the dropdown to select a specific tab.'
+            small_help_text.innerText = 'Change your custom theme colors. Use the dropdown to select a specific tab. (click me to export config)'
             custom_theme_div.append(small_help_text)
+            small_help_text.addEventListener('click', function() {
+                let final = 'custom_colors = {\n'
+                for (let key in custom_colors) {
+                    final += '    ' + key + ': {\n'
+                    for (key2 in custom_colors[key]) {
+                        final += '        ' + key2 + ' : \'' + custom_colors[key][key2] + '\',\n'
+                    }
+                    final += '    },'
+                }
+                final += '\n}'
+                console.log(final)
+                alert('//Config:\n' + final)
+            })
+            
             // Help text end
 
 
