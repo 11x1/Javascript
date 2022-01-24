@@ -3,12 +3,14 @@
 let theme_selected_color_is_custom = true
 let init = false
 
+console.log('WTF')
+
 custom_colors = {
     'home': {
-        'title' : '',
-        'subtitle' : '',
-        'stat_text' : '',
-        'stat' : '',
+        'title' : '#ffffff',
+        'subtitle' : '#ffffff',
+        'stat_text' : '#ffffff',
+        'stat' : '#ffffff',
     },
     
     'uploads' : {
@@ -34,10 +36,9 @@ custom_colors = {
 
 setInterval(function() {
     if (window.location == 'https://dashboard.shibe.host/settings') {
-        if (document.querySelector('[aria-selected="true"]').id != 'svelte-tabs-2') { init = false
+        if (document.querySelector('[aria-selected="true"]').id != document.getElementsByClassName('svelte-tabs__tab svelte-bcjkd5')[1].id) { init = false
 ; return }
-      
-        if (!init) {
+        if (!init && document.querySelector('[aria-selected="true"]').id == document.getElementsByClassName('svelte-tabs__tab svelte-bcjkd5')[1].id) {
             init = true
             console.log('que pasa hoblas')
             const shit = document.createElement('div')
@@ -204,7 +205,7 @@ setInterval(function() {
 
             // function to create elements faster (text & color)
             let custom_elements = []
-            function create_elem(parent, innerHTML, target_elem_color, target_elem_bg) {
+            function create_elem(parent, innerHTML) {
                 custom_elements[innerHTML] = []
                 custom_elements[innerHTML]['element'] = document.createElement('label')
                 custom_elements[innerHTML]['element'].innerText = innerHTML
@@ -212,16 +213,6 @@ setInterval(function() {
                 custom_elements[innerHTML]['color'] = document.createElement('input')
                 custom_elements[innerHTML]['color'].type = 'color'
                 custom_elements[innerHTML]['color'].style = 'right: 5%; position: absolute; transform: translate(0%, 3%)'
-
-                custom_elements[innerHTML]['color'].addEventListener('change', function() {
-                    if (target_elem_color) {
-                        target_elem_color.style.color = custom_elements[innerHTML]['color'].value
-                    }
-
-                    if (target_elem_bg) {
-                        target_elem_bg.style.backgroundColor = custom_elements[innerHTML]['color'].value
-                    }
-                })
 
                 parent.append(custom_elements[innerHTML]['element'])
                 parent.append(custom_elements[innerHTML]['color'])
@@ -234,25 +225,44 @@ setInterval(function() {
             create_elem(home_option_div, '\nHome stat text color ', document.getElementsByClassName('stat-title'), undefined)
 
             create_elem(home_option_div, '\nHome stat color ', document.getElementsByClassName('stat-value'), undefined)
+            
 
-            custom_colors['home']["title"] = custom_elements['Home title color ']['color'].value
-            custom_colors['home']["subtitle"] = custom_elements['\nHome subtitle color ']['color'].value
-            custom_colors['home']["stat_text"] = custom_elements['\nHome stat text color ']['color'].value
-            custom_colors['home']["stat"] = custom_elements['\nHome stat color ']['color'].value
+            custom_elements['Home title color ']['color'].value = custom_colors['home']["title"]
+            custom_elements['\nHome subtitle color ']['color'].value = custom_colors['home']["subtitle"]
+            custom_elements['\nHome stat text color ']['color'].value = custom_colors['home']["stat_text"]
+            custom_elements['\nHome stat color ']['color'].value = custom_colors['home']["stat"]
+
+
+            custom_elements['Home title color ']['color'].addEventListener('change', function() {
+                custom_colors['home']["title"] = custom_elements['Home title color ']['color'].value
+            })
+
+            custom_elements['\nHome subtitle color ']['color'].addEventListener('change', function() {
+                custom_colors['home']["subtitle"] = custom_elements['\nHome subtitle color ']['color'].value
+            })
+
+            custom_elements['\nHome stat text color ']['color'].addEventListener('change', function() {
+                custom_colors['home']["stat_text"] = custom_elements['\nHome stat text color ']['color'].value
+            })
+
+            custom_elements['\nHome stat color ']['color'].addEventListener('change', function() {
+                custom_colors['home']["stat"] = custom_elements['\nHome stat color ']['color'].value
+            })
         }
     } 
-
-    else if (window.location == 'https://dashboard.shibe.host/') {
-        document.getElementsByClassName('text-3xl font-bold mb-2 text-center')[0].style.color = custom_colors['home']["title"]
-        document.getElementsByClassName('text-gray-600 text-center mb-5')[0].style.color = custom_colors['home']["subtitle"]
-        let stat_title_elems = document.getElementsByClassName('stat-title')
-        for (i = 0; i < stat_title_elems.length; i++) {
-            stat_title_elems[i].style.color = custom_colors['home']["stat_text"]
-        }
-        let stat_value_elements = document.getElementsByClassName('stat-value')
-        for (i = 0; i < stat_value_elements.length; i++) {
-            stat_value_elements[i].style.color = custom_colors['home']["stat"]
+    
+    if (theme_selected_color_is_custom) {
+        if (window.location == 'https://dashboard.shibe.host/') {
+            document.getElementsByClassName('text-3xl font-bold mb-2 text-center')[0].style.color = custom_colors['home']["title"]
+            document.getElementsByClassName('text-gray-600 text-center mb-5')[0].style.color = custom_colors['home']["subtitle"]
+            let stat_title_elems = document.getElementsByClassName('stat-title')
+            for (i = 0; i < stat_title_elems.length; i++) {
+                stat_title_elems[i].style.color = custom_colors['home']["stat_text"]
+            }
+            let stat_value_elements = document.getElementsByClassName('stat-value')
+            for (i = 0; i < stat_value_elements.length; i++) {
+                stat_value_elements[i].style.color = custom_colors['home']["stat"]
+            }
         }
     }
-
 }, 1)
