@@ -18,7 +18,8 @@ custom_colors = {
     },
 
     'about' : {
-
+        'question' : '#ffffff',
+        'answer' : '#ffffff',
     },
 
     'settings' : {
@@ -167,7 +168,29 @@ setInterval(function() {
             general_option_div.style.display = 'block'
             custom_theme_div.append(general_option_div)
             // Divs for each option end
+            
 
+            home_option_div.style.display = 'none'
+            uploads_option_div.style.display = 'none'
+            about_option_div.style.display = 'none'
+            settings_option_div.style.display = 'none'
+            upload_option_div.style.display = 'none'
+            general_option_div.style.display = 'none'
+
+
+            if (newdropdown.value == 'home_option') {
+                home_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'uploads_option') {
+                uploads_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'about_option') {
+                about_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'settings_option') {
+                settings_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'upload_option') {
+                upload_option_div.style.display = 'block'
+            } else if (newdropdown.value == 'general_option') {
+                general_option_div.style.display = 'block'
+            }
 
             // handle visibility of shit
             newdropdown.addEventListener('change', function() {
@@ -218,19 +241,26 @@ setInterval(function() {
                 parent.append(custom_elements[innerHTML]['color'])
             }
 
-            create_elem(home_option_div, 'Home title color ', document.getElementsByClassName('text-3xl font-bold mb-2 text-center')[0], undefined)
+            create_elem(home_option_div, 'Home title color ')
 
-            create_elem(home_option_div, '\nHome subtitle color ', document.getElementsByClassName('text-gray-600 text-center mb-5')[0], undefined)
+            create_elem(home_option_div, '\nHome subtitle color ')
 
-            create_elem(home_option_div, '\nHome stat text color ', document.getElementsByClassName('stat-title'), undefined)
+            create_elem(home_option_div, '\nHome stat text color ')
 
-            create_elem(home_option_div, '\nHome stat color ', document.getElementsByClassName('stat-value'), undefined)
+            create_elem(home_option_div, '\nHome stat color ')
+
+            create_elem(about_option_div, 'About question color ')
+
+            create_elem(about_option_div, '\nAbout answer color ')
             
 
             custom_elements['Home title color ']['color'].value = custom_colors['home']["title"]
             custom_elements['\nHome subtitle color ']['color'].value = custom_colors['home']["subtitle"]
             custom_elements['\nHome stat text color ']['color'].value = custom_colors['home']["stat_text"]
             custom_elements['\nHome stat color ']['color'].value = custom_colors['home']["stat"]
+
+            custom_elements['About question color ']['color'].value = custom_colors['about']["question"]
+            custom_elements['\nAbout answer color ']['color'].value = custom_colors['about']["answer"]
 
 
             custom_elements['Home title color ']['color'].addEventListener('change', function() {
@@ -248,6 +278,14 @@ setInterval(function() {
             custom_elements['\nHome stat color ']['color'].addEventListener('change', function() {
                 custom_colors['home']["stat"] = custom_elements['\nHome stat color ']['color'].value
             })
+
+
+            custom_elements['\nAbout answer color ']['color'].addEventListener('change', function() {
+                 custom_colors['about']["answer"] = custom_elements['\nAbout answer color ']['color'].value
+            })
+            custom_elements['About question color ']['color'].addEventListener('change', function() {
+                 custom_colors['about']["question"] = custom_elements['About question color ']['color'].value
+            })
         }
     } 
     
@@ -262,6 +300,15 @@ setInterval(function() {
             let stat_value_elements = document.getElementsByClassName('stat-value')
             for (i = 0; i < stat_value_elements.length; i++) {
                 stat_value_elements[i].style.color = custom_colors['home']["stat"]
+            }
+        } else if (window.location == 'https://dashboard.shibe.host/about') {
+            let question_elems = document.getElementsByClassName('text-xl')
+            let answer_elems = document.getElementsByClassName('text-gray-500')
+            for (i = 0; i < question_elems.length; i++) {
+                question_elems[i].style.color = custom_colors['about']['question']
+            }
+            for (i = 0; i < answer_elems.length; i++) {
+                answer_elems[i].style.color = custom_colors['about']['answer']
             }
         }
     }
