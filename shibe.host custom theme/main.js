@@ -1,44 +1,27 @@
 // This code COULD be optimised alot but fuck that we're not optimizing shit because we're a good dev
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 let theme_selected_color_is_custom = true
 let init = false
 let updated_uploads_tab = false
 let custom_elements = []
 
-var textFile = null,
-makeTextFile = function (text) {
-    var data = new Blob([text], {type: 'text/plain'});
-
-    // If we are replacing a previously generated file we need to
-    // manually revoke the object URL to avoid memory leaks.
-    if (textFile !== null) {
-      window.URL.revokeObjectURL(textFile);
-    }
-
-    textFile = window.URL.createObjectURL(data);
-
-    // returns a URL you can use as a href
-    return textFile;
-};
 custom_colors = {
     'home': {
         'title' : '#ffffff',
         'subtitle' : '#ffffff',
-        'stat_text' : '#ffffff',
+        'stattext' : '#ffffff',
         'stat' : '#ffffff',
     },
     
     'uploads' : {
         'image_tab' : '#ffffff',
         'image_border' : '#ffffff',
+        'file-name' : '#0000ff',
+        'file-date' : '#111111',
         'copy_link' : '#ffffff',
         'copy_link_hover' : '#ffffff',
         'delete_file' : '#ffffff',
-        'delete_file_hover' : '#ffffff'
+        'delete_file_hover' : '#ffffff',
     },
 
     'about' : {
@@ -51,21 +34,24 @@ custom_colors = {
     },
 
     'upload' : {
-
+        'dropzone' : '#313131',
+        'dropzone-text' : '#ffffff',
+        'progressbar' : '#ff0000',
     },
 
     'general' : {
-
+        'header_color' : '#212121',
+        'header_text_color' : '#ffffff',
+        'background' : '#111111'
     },
 }
 
-setInterval(async function() {
+setInterval(function() {
     if (window.location == 'https://dashboard.shibe.host/settings') {
         if (document.querySelector('[aria-selected="true"]').id != document.getElementsByClassName('svelte-tabs__tab svelte-bcjkd5')[1].id) { init = false
 ; return }
         if (!init && document.querySelector('[aria-selected="true"]').id == document.getElementsByClassName('svelte-tabs__tab svelte-bcjkd5')[1].id) {
             init = true
-            console.log('que pasa hoblas')
             const shit = document.createElement('div')
             shit.className = 'mt-10 w-full relative'
 
@@ -123,17 +109,17 @@ setInterval(async function() {
             newdropdown.className = 'w-full select select-bordered'
             custom_theme_div.append(newdropdown)
 
+            // General page option
+            let general_option = document.createElement('option')
+            general_option.value = 'general_option'
+            general_option.innerText = 'General'
+            newdropdown.append(general_option)
+
             // Home page option
             let home_option = document.createElement('option')
             home_option.value = 'home_option'
             home_option.innerText = 'Home'
             newdropdown.append(home_option)
-
-            // Uploads page option
-            let uploads_option = document.createElement('option')
-            uploads_option.value = 'uploads_option'
-            uploads_option.innerText = 'Uploads'
-            newdropdown.append(uploads_option)
 
             // About page option
             let about_option = document.createElement('option')
@@ -141,55 +127,55 @@ setInterval(async function() {
             about_option.innerText = 'About'
             newdropdown.append(about_option)
 
-            // About page option
-            let settings_option = document.createElement('option')
-            settings_option.value = 'settings_option'
-            settings_option.innerText = 'Settings'
-            newdropdown.append(settings_option)
+            // Uploads page option
+            let uploads_option = document.createElement('option')
+            uploads_option.value = 'uploads_option'
+            uploads_option.innerText = 'Uploads'
+            newdropdown.append(uploads_option)
 
-            // About page option
+            // Upload page option
             let upload_option = document.createElement('option')
             upload_option.value = 'upload_option'
             upload_option.innerText = 'Upload'
             newdropdown.append(upload_option)
 
-            // About page option
-            let general_option = document.createElement('option')
-            general_option.value = 'general_option'
-            general_option.innerText = 'General'
-            newdropdown.append(general_option)
+            // Settings page option
+            let settings_option = document.createElement('option')
+            settings_option.value = 'settings_option'
+            settings_option.innerText = 'Settings'
+            newdropdown.append(settings_option)
             // dropdown options end
 
 
             // Div for each option
             let home_option_div = document.createElement('div')
             home_option_div.id = 'home_option_div'
-            home_option_div.style.display = 'block'
+            home_option_div.style = 'display: block; padding-top: 5px'
             custom_theme_div.append(home_option_div)
 
             let uploads_option_div = document.createElement('div')
             uploads_option_div.id = 'uploads_option_div'
-            uploads_option_div.style.display = 'block'
+            uploads_option_div.style = 'display: block; padding-top: 5px'
             custom_theme_div.append(uploads_option_div)
 
             let about_option_div = document.createElement('div')
             about_option_div.id = 'about_option_div'
-            about_option_div.style.display = 'block'
+            about_option_div.style = 'display: block; padding-top: 5px'
             custom_theme_div.append(about_option_div)
 
             let settings_option_div = document.createElement('div')
             settings_option_div.id = 'settings_option_div'
-            settings_option_div.style.display = 'block'
+            settings_option_div.style = 'display: block; padding-top: 5px'
             custom_theme_div.append(settings_option_div)
 
             let upload_option_div = document.createElement('div')
             upload_option_div.id = 'upload_option_div'
-            upload_option_div.style.display = 'block'
+            upload_option_div.style = 'display: block; padding-top: 5px'
             custom_theme_div.append(upload_option_div)
 
             let general_option_div = document.createElement('div')
             about_option_div.id = 'general_option_div'
-            general_option_div.style.display = 'block'
+            general_option_div.style = 'display: block; padding-top: 5px'
             custom_theme_div.append(general_option_div)
             // Divs for each option end
 
@@ -269,125 +255,143 @@ setInterval(async function() {
 
 
             // function to create elements faster (text & color)
-            function create_elem(parent, innerHTML) {
-                custom_elements[innerHTML] = []
-                custom_elements[innerHTML]['element'] = document.createElement('label')
-                custom_elements[innerHTML]['element'].innerText = innerHTML
+            function create_elem(parent, innerHTML, corresponding_subtab, subtab_subtext) {
+                // create the name of the color stuff
+                custom_elements[corresponding_subtab] = custom_elements[corresponding_subtab] || []
+                custom_elements[corresponding_subtab][subtab_subtext + '_text'] = document.createElement('label')
+                custom_elements[corresponding_subtab][subtab_subtext + '_text'].innerText = innerHTML
 
-                custom_elements[innerHTML]['color'] = document.createElement('input')
-                custom_elements[innerHTML]['color'].type = 'color'
-                custom_elements[innerHTML]['color'].style = 'right: 5%; position: absolute; transform: translate(0%, 3%)'
+                // color input
+                custom_elements[corresponding_subtab][subtab_subtext] = document.createElement('input')
+                custom_elements[corresponding_subtab][subtab_subtext].type = 'color'
+                custom_elements[corresponding_subtab][subtab_subtext].style = 'right: 5%; position: absolute; transform: translate(0%, 3%)'
+                // set default color (all are '#ffffff' by default)
+                custom_elements[corresponding_subtab][subtab_subtext].value = custom_colors[corresponding_subtab][subtab_subtext]
                 
-                parent.append(custom_elements[innerHTML]['element'])
-                parent.append(custom_elements[innerHTML]['color'])
+                // append element to corresponding div (ie. custom home option div, custom about page div etc)
+                parent.append(custom_elements[corresponding_subtab][subtab_subtext + '_text'])
+                parent.append(custom_elements[corresponding_subtab][subtab_subtext])
+
+                // create on-change event listener to set the corresponding custom_color element to our own input color value
+                custom_elements[corresponding_subtab][subtab_subtext].addEventListener('change', function() {
+                    custom_colors[corresponding_subtab][subtab_subtext] = custom_elements[corresponding_subtab][subtab_subtext].value
+                })
             }
             
+            // General theme options
+            create_elem(general_option_div, 'Header color', 'general', 'header_color')
+            create_elem(general_option_div, '\nHeader text color', 'general', 'header_text_color')
+            create_elem(general_option_div, '\nBackground color', 'general', 'background')
+
+
             // Home theme options
-            create_elem(home_option_div, 'Home title color ')
-            create_elem(home_option_div, '\nHome subtitle color ')
-            create_elem(home_option_div, '\nHome stat text color ')
-            create_elem(home_option_div, '\nHome stat color ')
-            
+            create_elem(home_option_div, 'Title color', 'home', 'title')
+            create_elem(home_option_div, '\nSubtitle color', 'home', 'subtitle')
+            create_elem(home_option_div, '\nStat text color', 'home', 'stattext')
+            create_elem(home_option_div, '\nStat color', 'home', 'stat')
+
+            create_elem(about_option_div, 'Question color', 'about', 'question')
+            create_elem(about_option_div, '\nAnswer color', 'about', 'answer')
+
+            // Upload theme options
+            create_elem(upload_option_div, 'Dropzone color', 'upload', 'dropzone')
+            create_elem(upload_option_div, '\nDropzone text', 'upload', 'dropzone-text')
+            create_elem(upload_option_div, '\nProgress bar', 'upload', 'progressbar')
+
             // Uploads theme options
-            create_elem(uploads_option_div, 'Image tab color ')
-            create_elem(uploads_option_div, '\nImage border color ')
-            create_elem(uploads_option_div, '\n"Copy link" color ')
-            create_elem(uploads_option_div, '\n"Copy link" hover color ')
-            create_elem(uploads_option_div, '\n"Delete file" color ')
-            create_elem(uploads_option_div, '\n"Delete file" hover color ')
-
-            // About theme options
-            create_elem(about_option_div, 'About question color ')
-            create_elem(about_option_div, '\nAbout answer color ')
-
-            await sleep(1000)
-
-
-            custom_elements['Home title color ']['color'].value = custom_colors['home']["title"]
-            custom_elements['\nHome subtitle color ']['color'].value = custom_colors['home']["subtitle"]
-            custom_elements['\nHome stat text color ']['color'].value = custom_colors['home']["stat_text"]
-            custom_elements['\nHome stat color ']['color'].value = custom_colors['home']["stat"]
-
-            // Were doing this in css so fuck that
-            //custom_elements['Image tab color ']['color'].value = custom_colors['uploads']["image_tab"]
-            custom_elements['\nImage border color ']['color'].value = custom_colors['uploads']["image_border"]
-            custom_elements['\n"Copy link" color ']['color'].value = custom_colors['uploads']["copy_link"]
-            custom_elements['\n"Copy link" hover color ']['color'].value = custom_colors['uploads']["copy_link_hover"]
-            custom_elements['\n"Delete file" color ']['color'].value = custom_colors['uploads']["delete_file"]
-            custom_elements['\n"Delete file" hover color ']['color'].value = custom_colors['uploads']["delete_file_hover"]
-
-            custom_elements['About question color ']['color'].value = custom_colors['about']["question"]
-            custom_elements['\nAbout answer color ']['color'].value = custom_colors['about']["answer"]
-
-
-            custom_elements['Home title color ']['color'].addEventListener('change', function() {
-                custom_colors['home']["title"] = custom_elements['Home title color ']['color'].value
-            })
-
-            custom_elements['\nHome subtitle color ']['color'].addEventListener('change', function() {
-                custom_colors['home']["subtitle"] = custom_elements['\nHome subtitle color ']['color'].value
-            })
-
-            custom_elements['\nHome stat text color ']['color'].addEventListener('change', function() {
-                custom_colors['home']["stat_text"] = custom_elements['\nHome stat text color ']['color'].value
-            })
-
-            custom_elements['\nHome stat color ']['color'].addEventListener('change', function() {
-                custom_colors['home']["stat"] = custom_elements['\nHome stat color ']['color'].value
-            })
-            
-            
-            custom_elements['\nImage border color ']['color'].addEventListener('change', function() {
-                custom_colors['uploads']["image_border"] = custom_elements['Image border color ']['color'].value
-            })
-            custom_elements['\n"Copy link" color ']['color'].addEventListener('change', function() {
-                custom_colors['uploads']["copy_link"] = custom_elements['"Copy link" color ']['color'].value 
-            })
-             custom_elements['\n"Copy link" hover color ']['color'].addEventListener('change', function() {
-                custom_colors['uploads']["copy_link_hover"] = custom_elements['"Copy link" hover color ']['color'].value 
-            })
-            custom_elements['\n"Delete file" color ']['color'].addEventListener('change', function() {
-                 custom_colors['uploads']["delete_file"] = custom_elements['"Delete file" color ']['color'].value
-            })
-            custom_elements['\n"Delete file" hover color"']['color'].addEventListener('change', function() {
-                custom_colors['uploads']["delete_file_hover"] = custom_elements['"Delete file" hover color"']['color'].value 
-            })
-            
-
-            custom_elements['\nAbout answer color ']['color'].addEventListener('change', function() {
-                 custom_colors['about']["answer"] = custom_elements['\nAbout answer color ']['color'].value
-            })
-            custom_elements['About question color ']['color'].addEventListener('change', function() {
-                 custom_colors['about']["question"] = custom_elements['About question color ']['color'].value
-            })
+            create_elem(uploads_option_div, 'Image tab', 'uploads', 'image_tab')
+            create_elem(uploads_option_div, '\nImage border', 'uploads', 'image_border')
+            create_elem(uploads_option_div, '\nFile name', 'uploads', 'file-name')
+            create_elem(uploads_option_div, '\nFile date', 'uploads', 'file-date')
+            create_elem(uploads_option_div, '\nCopy link', 'uploads', 'copy_link')
+            create_elem(uploads_option_div, '\nCopy link hover (hover)', 'uploads', 'copy_link_hover')
+            create_elem(uploads_option_div, '\nDelete file', 'uploads', 'delete_file')
+            create_elem(uploads_option_div, '\nDelete file (hover)', 'uploads', 'delete_file_hover')
         }
     } 
     
     if (theme_selected_color_is_custom) {
         if (window.location == 'https://dashboard.shibe.host/') {
+            // Title color
             document.getElementsByClassName('text-3xl font-bold mb-2 text-center')[0].style.color = custom_colors['home']["title"]
+
+            // Subitle color
             document.getElementsByClassName('text-gray-600 text-center mb-5')[0].style.color = custom_colors['home']["subtitle"]
+
+            // Stat text color
             let stat_title_elems = document.getElementsByClassName('stat-title')
             for (i = 0; i < stat_title_elems.length; i++) {
-                stat_title_elems[i].style.color = custom_colors['home']["stat_text"]
+                stat_title_elems[i].style.color = custom_colors['home']["stattext"]
             }
+
+            // Stat color
             let stat_value_elements = document.getElementsByClassName('stat-value')
             for (i = 0; i < stat_value_elements.length; i++) {
                 stat_value_elements[i].style.color = custom_colors['home']["stat"]
             }
-        } else if (window.location == 'https://dashboard.shibe.host/about') {
-            let question_elems = document.getElementsByClassName('text-xl')
-            let answer_elems = document.getElementsByClassName('text-gray-500')
-            for (i = 0; i < question_elems.length; i++) {
-                question_elems[i].style.color = custom_colors['about']['question']
-            }
-            for (i = 0; i < answer_elems.length; i++) {
-                answer_elems[i].style.color = custom_colors['about']['answer']
-            }
-        } else if (window.location == 'https://dashboard.shibe.host/uploads' && !updated_uploads_tab) {
-            document.getElementById('custom_uploads_tab1').innerText = '.bg-neutral.p-4 { background-color: ' + custom_elements['Image tab color ']['color'].value + ' }'
 
-                document.getElementById('custom_uploads_tab2').innerText = '.shadow-2xl.rounded-xl.overflow-hidden.border-b-4 { background-color: ' + custom_elements['Image tab color ']['color'].value + ' }'
+        } else if (window.location == 'https://dashboard.shibe.host/about') {
+            // Question colors
+            let about_questions = document.getElementsByClassName('text-xl')
+            for (i = 0; i < about_questions.length; i++) {
+                about_questions[i].style.color = custom_colors['about']["question"]
+            }
+
+            let about_answers = document.getElementsByClassName('text-gray-500')
+            for (i = 0; i < about_answers.length; i++) {
+                about_answers[i].style.color = custom_colors['about']["answer"]
+            }
+        } else if (window.location == 'https://dashboard.shibe.host/uploads') {
+            let upload_tabs = document.getElementsByClassName('bg-neutral p-4 md:p-6')
+            for (i=0; i < upload_tabs.length; i++) {
+                upload_tabs[i].style.backgroundColor = custom_colors['uploads']['image_tab']
+            }
+
+            let image_borders = document.getElementsByClassName('this element does not exist')
+            for (i=0; i < image_borders.length; i++) {
+                image_borders[i].style.backgroundColor = custom_colors['uploads']['image_border']
+            }
+
+            let file_names = document.getElementsByClassName('font-semibold mb-2 text-blue-500 text-l leading-tight break-words sm:leading-normal')
+            for (i=0; i < file_names.length; i++) {
+                file_names[i].style.color = custom_colors['uploads']['file-name']
+            }
+
+            let file_dates = document.getElementsByClassName('leading-none text-white')
+            for (i=0; i < file_dates.length; i++) {
+                file_dates[i].style.color = custom_colors['uploads']['file-date']
+            }
+
+            let copy_links = document.getElementsByClassName('btn text-sm bg-blue-600 hover:bg-blue-800 text-white')
+            for (i=0; i < copy_links.length; i++) {
+                copy_links[i].style.backgroundColor = custom_colors['uploads']['copy_link']
+                // create shit for hover
+            }
+
+            let delete_files = document.getElementsByClassName('mt-4 btn text-sm bg-red-600 text-white hover:bg-red-800')
+            for (i=0; i < delete_files.length; i++) {
+                delete_files[i].style.backgroundColor = custom_colors['uploads']['delete_file']
+                // create shit for hover
+            }
+        } else if (window.location == 'https://dashboard.shibe.host/upload') {
+            document.getElementById('uploadZone').style.backgroundColor = custom_colors['upload']['dropzone']
+            document.getElementsByClassName('dz-button')[0].style.color = custom_colors['upload']['dropzone-text']
+            for (i=0; i < document.getElementsByClassName('dz-upload').length; i++) {
+                document.getElementsByClassName('dz-upload')[i].style.color = custom_colors['upload']['progressbar']
+            }
+        } else if (window.location == 'https://dashboard.shibe.host/settings') {
+
         }
+
+        // General theme shit
+        // Header bg color
+        document.getElementsByClassName('navbar mb-2 flex justify-between shadow-lg bg-neutral text-neutral-content')[0].style.backgroundColor = custom_colors['general']['header_color']
+        let header_text_elems = document.getElementsByClassName('btn btn-ghost')
+        for (i = 0; i < header_text_elems.length; i++) {
+            header_text_elems[i].style.color = custom_colors['general']['header_text_color']
+        }
+        document.getElementsByClassName('text-lg font-bold')[0].style.color = custom_colors['general']['header_text_color']
+        document.getElementsByClassName('svelte-165ybav')[0].style.color = custom_colors['general']['header_text_color']
+        document.body.style.backgroundColor = custom_colors['general']['background']
     }
-}, 1)
+}, 1) 
