@@ -9,7 +9,8 @@ const canvas_props = {
     'width': 200,
     'height': 200,
     'background': '#2d2d2d',
-    'foreground': '#ffffff'
+    'foreground': '#ffffff',
+    'padding': 0.1, // Padding
 }
 
 const canvas = document.createElement('canvas')
@@ -26,7 +27,7 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 const logo_img = new Image;
 
 logo_img.onload = function() {
-    context.drawImage(logo_img, canvas.width/2 - image_props['width']/2, canvas.height*0.05, image_props['width'], image_props['height']);
+    context.drawImage(logo_img, canvas.width/2 - image_props['width']/2, canvas.height*canvas_props['padding'], image_props['width'], image_props['height']);
 
     // Draw text
     let default_size_font = 30
@@ -43,7 +44,7 @@ logo_img.onload = function() {
     }
 
     // Render textz
-    context.fillText(username, canvas.width / 2, canvas.height*0.05 + image_props['height'] + context.measureText('M').width); // context.measureText('M').width returns approx. line height, please lmk if there is a better way
+    context.fillText(username, canvas.width / 2, canvas.height*canvas_props['padding'] + image_props['height'] + context.measureText('M').width); // context.measureText('M').width returns approx. line height, please lmk if there is a better way
     document.getElementById('img').src = canvas.toDataURL()
 }
 
